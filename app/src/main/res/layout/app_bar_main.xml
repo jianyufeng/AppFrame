@@ -4,6 +4,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent">
     <!--toolbar-->
+    <!--AppBarLayout 可以指定子view在滚动视图 发生滑动时 执行什么动作-->
     <android.support.design.widget.AppBarLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
