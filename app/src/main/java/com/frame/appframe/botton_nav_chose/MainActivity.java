@@ -1,7 +1,9 @@
-package com.frame.appframe;
+package com.frame.appframe.botton_nav_chose;
 
 import android.os.Bundle;
 import android.support.annotation.NonNull;
+import android.support.design.internal.BottomNavigationItemView;
+import android.support.design.internal.BottomNavigationMenuView;
 import android.support.design.widget.BottomNavigationView;
 import android.support.design.widget.NavigationView;
 import android.support.v4.view.GravityCompat;
@@ -12,8 +14,13 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.MenuItem;
 
+import com.frame.appframe.R;
+
+import java.lang.reflect.Field;
+
 /***
  *�this contain left menu
+ *  这是android 系统自带的控价实现的底部导航  不过有太多的局限性
  */
 public class MainActivity extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener {
 
@@ -34,6 +41,9 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
 //                    mTextMessage.setText(R.string.title_dashboard);
                     return true;
                 case R.id.navigation_notifications:
+//                    mTextMessage.setText(R.string.title_notifications);
+                    return true;
+                case R.id.navigation_my:
 //                    mTextMessage.setText(R.string.title_notifications);
                     return true;
             }
@@ -57,7 +67,10 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         setSupportActionBar(toolbar);
 
         BottomNavigationView navigation = (BottomNavigationView) findViewById(R.id.navigation);
+        BottomNavigationViewHelper.disableShiftMode(navigation);//去掉大于4后的位移效果
         navigation.setOnNavigationItemSelectedListener(mOnNavigationItemSelectedListener);
+        //设置默认  默认选中中间
+        navigation.setSelectedItemId(R.id.navigation_dashboard);
 
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(this, drawer, toolbar, R.string.navigation_drawer_open, R.string.navigation_drawer_close);
@@ -66,6 +79,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
 
         NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
         navigationView.setNavigationItemSelectedListener(this);
+
 
 
         mViewPager = (ViewPager) findViewById(R.id.viewpager);
@@ -97,5 +111,30 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         drawer.closeDrawer(GravityCompat.START);
         return true;
+    }
+
+
+
+    static class BottomNavigationViewHelper{
+
+        public static void disableShiftMode(BottomNavigationView navigationView) {
+
+            BottomNavigationMenuView menuView = (BottomNavigationMenuView) navigationView.getChildAt(0);
+            try {
+                Field shiftingMode = menuView.getClass().getDeclaredField("mShiftingMode");
+                shiftingMode.setAccessible(true);
+                shiftingMode.setBoolean(menuView, false);
+                shiftingMode.setAccessible(false);
+
+                for (int i = 0; i < menuView.getChildCount(); i++) {
+                    BottomNavigationItemView itemView = (BottomNavigationItemView) menuView.getChildAt(i);
+                    itemView.setShiftingMode(false);
+                    itemView.setChecked(itemView.getItemData().isChecked());
+                }
+
+            } catch (NoSuchFieldException | IllegalAccessException e) {
+                e.printStackTrace();
+            }
+        }
     }
 }
