@@ -26,6 +26,7 @@
         android:layout_marginBottom="56dp"
         android:layout_height="match_parent"
         android:layout_width="match_parent"/>
+
     <!--底部导航 定制性不高-->
     <android.support.design.widget.BottomNavigationView
         android:id="@+id/navigation"

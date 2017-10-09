@@ -6,6 +6,7 @@ import android.support.design.internal.BottomNavigationItemView;
 import android.support.design.internal.BottomNavigationMenuView;
 import android.support.design.widget.BottomNavigationView;
 import android.support.design.widget.NavigationView;
+import android.support.v4.app.Fragment;
 import android.support.v4.view.GravityCompat;
 import android.support.v4.view.ViewPager;
 import android.support.v4.widget.DrawerLayout;
@@ -14,10 +15,14 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.Toast;
 
 import com.frame.appframe.R;
+import com.frame.appframe.adapter.FragmentVPAdapter;
+import com.frame.appframe.fragment.MyFragment;
 
 import java.lang.reflect.Field;
+import java.util.ArrayList;
 
 /***
  *�this contain left menu
@@ -26,6 +31,7 @@ import java.lang.reflect.Field;
 public class MainActivity extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener {
 
     private ViewPager mViewPager;
+    private int currentPos = 0 ;
 
     //底部导航栏点击事件
     private BottomNavigationView.OnNavigationItemSelectedListener mOnNavigationItemSelectedListener
@@ -36,19 +42,22 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
             //点击切换fragment
             switch (item.getItemId()) {
                 case R.id.navigation_home:
-//                    mTextMessage.setText(R.string.title_home);
-                    return true;
+                    currentPos = 0;
+                  break;
                 case R.id.navigation_dashboard:
-//                    mTextMessage.setText(R.string.title_dashboard);
-                    return true;
+                    currentPos = 1;
+                    break;
                 case R.id.navigation_notifications:
-//                    mTextMessage.setText(R.string.title_notifications);
-                    return true;
+                    currentPos = 2;
+                    break;
                 case R.id.navigation_my:
-//                    mTextMessage.setText(R.string.title_notifications);
-                    return true;
+                    currentPos = 3;
+                    break;
+                default:
+                    return false;
             }
-            return false;
+            Toast.makeText(MainActivity.this,""+currentPos,Toast.LENGTH_LONG).show();
+            return true;
         }
 
     };
@@ -58,6 +67,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         initView();
+
     }
 
     /**
@@ -78,19 +88,26 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         drawer.addDrawerListener(toggle);
         toggle.syncState();//显示三条线
 
-
+        //左边菜单
         NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
         navigationView.setNavigationItemSelectedListener(this);
         View headerView = navigationView.getHeaderView(0);//通过获取头部view来获取其他视图 然后设置点击事件
-        MenuItem item = navigationView.getMenu().findItem(R.id.nav_camera);
-        item.setVisible(false);
+        /*MenuItem item = navigationView.getMenu().findItem(R.id.nav_camera);
+        item.setVisible(false);*/
 
-
+        //主内容区
         mViewPager = (ViewPager) findViewById(R.id.viewpager);
+        ArrayList<Fragment> fragments = new ArrayList<>();
+        fragments.add(new MyFragment());
+        fragments.add(new MyFragment());
+        fragments.add(new MyFragment());
+        mViewPager.setOffscreenPageLimit(fragments.size());//设置
+        mViewPager.setAdapter(new FragmentVPAdapter(getSupportFragmentManager(), fragments));
     }
 
     /**
      * 菜单选项点击事件
+     *
      * @param item
      * @return
      */
@@ -127,7 +144,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         }
     }
 
-    static class BottomNavigationViewHelper{
+    static class BottomNavigationViewHelper {
 
         public static void disableShiftMode(BottomNavigationView navigationView) {
 
@@ -149,7 +166,6 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
             }
         }
     }
-
 
 
 }
