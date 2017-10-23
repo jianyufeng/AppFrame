@@ -1,6 +1,5 @@
 package com.frame.appframe.botton_nav_chose;
 
-import android.content.pm.ActivityInfo;
 import android.content.res.Configuration;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
@@ -27,11 +26,16 @@ import com.frame.appframe.fragment.MyFragment;
 import java.lang.reflect.Field;
 import java.util.ArrayList;
 
+import javax.inject.Inject;
+
 /***
  *�this contain left menu
  *  这是android 系统自带的控价实现的底部导航  不过有太多的局限性
  */
-public class MainActivity extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener {
+public class MainActivity extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener, MainContract.View {
+    @Inject
+    MainPresenter mainPresenter;
+
 
     private ViewPager mViewPager;
     private int currentPos = 0 ;
@@ -70,13 +74,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         initView();
-        mViewPager.postDelayed(new Runnable() {
-            @Override
-            public void run() {
-                //设置活动的方向   即配置发生改变
-                setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_LANDSCAPE);
-            }
-        }, 4000);
+        DaggerMainComponent.builder().mainModule(new MainModule(this)).build().inject(this);
     }
 
     /**
@@ -151,6 +149,11 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         } else {
             super.onBackPressed();
         }
+    }
+
+    @Override
+    public void updateUI() {
+
     }
 
     static class BottomNavigationViewHelper {
