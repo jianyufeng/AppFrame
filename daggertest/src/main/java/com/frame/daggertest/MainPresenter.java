@@ -1,4 +1,4 @@
-package com.frame.appframe.botton_nav_chose;
+package com.frame.daggertest;
 
 import javax.inject.Inject;
 

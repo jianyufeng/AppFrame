@@ -26,15 +26,11 @@ import com.frame.appframe.fragment.MyFragment;
 import java.lang.reflect.Field;
 import java.util.ArrayList;
 
-import javax.inject.Inject;
-
 /***
  *�this contain left menu
  *  这是android 系统自带的控价实现的底部导航  不过有太多的局限性
  */
-public class MainActivity extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener, MainContract.View {
-    @Inject
-    MainPresenter mainPresenter;
+public class MainActivity extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener {
 
 
     private ViewPager mViewPager;
@@ -74,7 +70,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         initView();
-        DaggerMainComponent.builder().mainModule(new MainModule(this)).build().inject(this);
+
     }
 
     /**
@@ -151,10 +147,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         }
     }
 
-    @Override
-    public void updateUI() {
 
-    }
 
     static class BottomNavigationViewHelper {
 
