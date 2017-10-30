@@ -1,10 +1,14 @@
 package com.frame.util.scree;
 
 import android.annotation.TargetApi;
+import android.app.Activity;
 import android.content.Context;
 import android.content.res.Resources;
+import android.graphics.Bitmap;
+import android.graphics.Rect;
 import android.os.Build;
 import android.util.DisplayMetrics;
+import android.view.View;
 import android.view.ViewConfiguration;
 import android.view.WindowManager;
 
@@ -124,5 +128,46 @@ public class ScreenUtil {
         return sNavBarOverride;
     }
 
+    /**
+     * 获取当前屏幕截图，包含状态栏
+     * ????????????????????????????
+     *
+     * @param activity
+     * @return
+     */
+    public static Bitmap snapShotWithStatusBar(Activity activity) {
+        View view = activity.getWindow().getDecorView();
+        view.setDrawingCacheEnabled(true);
+        view.buildDrawingCache();
+        Bitmap bmp = view.getDrawingCache();
+        int width = getScreenWidth(activity);
+        int height = getScreenHeight(activity);
+        Bitmap bp = null;
+        bp = Bitmap.createBitmap(bmp, 0, 0, width, height);
+        view.destroyDrawingCache();
+        return bp;
+    }
 
+    /**
+     * 获取当前屏幕截图，不包含状态栏
+     * ???????????????????????????
+     *
+     * @param activity
+     * @return
+     */
+    public static Bitmap snapShotWithoutStatusBar(Activity activity) {
+        View view = activity.getWindow().getDecorView();
+        view.setDrawingCacheEnabled(true);
+        view.buildDrawingCache();
+        Bitmap bmp = view.getDrawingCache();
+        Rect frame = new Rect();
+        activity.getWindow().getDecorView().getWindowVisibleDisplayFrame(frame);
+        int statuesBarHeight = frame.top;
+        int width = getScreenWidth(activity);
+        int height = getScreenHeight(activity);
+        Bitmap bp = null;
+        bp = Bitmap.createBitmap(bmp,0,statuesBarHeight,width,height - statuesBarHeight);
+        view.destroyDrawingCache();
+        return bp;
+    }
 }

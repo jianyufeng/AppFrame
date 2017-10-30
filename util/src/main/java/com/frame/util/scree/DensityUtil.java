@@ -54,9 +54,9 @@ public class DensityUtil {
      * @param pxVal
      * @return
      */
-    public static float px2dp(Context context, float pxVal) {
+    public static int px2dp(Context context, float pxVal) {
         float scale = context.getResources().getDisplayMetrics().density;
-        return  (pxVal/scale);
+        return (int) (pxVal/scale +0.5);
     }
     /**
      * px转sp
@@ -65,8 +65,9 @@ public class DensityUtil {
      * @param pxVal
      * @return
      */
-    public static float px2sp(Context context, float pxVal) {
-        return (pxVal / context.getResources().getDisplayMetrics().scaledDensity);
+    public static int  px2sp(Context context, float pxVal) {
+        float scale = context.getResources().getDisplayMetrics().density;
+        return (int) (pxVal / scale + 0.5);
     }
 
 

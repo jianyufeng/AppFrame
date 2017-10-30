@@ -57,6 +57,7 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
         //替换密码默认显示形式
         pass.setTransformationMethod(new PasswordReplace());
 
+
     }
 
 
