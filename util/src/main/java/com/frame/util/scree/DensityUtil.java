@@ -1,4 +1,4 @@
-package com.frame.util.keybord;
+package com.frame.util.scree;
 
 /**
  * Created by Administrator on 2017/10/27.
@@ -54,9 +54,9 @@ public class DensityUtil {
      * @param pxVal
      * @return
      */
-    public static int px2dp(Context context, float pxVal) {
+    public static float px2dp(Context context, float pxVal) {
         float scale = context.getResources().getDisplayMetrics().density;
-        return (int) (pxVal/scale);
+        return  (pxVal/scale);
     }
     /**
      * px转sp
