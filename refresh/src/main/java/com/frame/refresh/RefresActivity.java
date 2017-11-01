@@ -66,6 +66,7 @@ public class RefresActivity extends AppCompatActivity {
         adapter.addHeaderView(textView);
         textView.setText("food");
         adapter.addFooterView(textView);
+
     }
 
     public class QuickAdapter extends BaseQuickAdapter<String, BaseViewHolder> {
