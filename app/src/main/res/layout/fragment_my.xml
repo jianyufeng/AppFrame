@@ -2,12 +2,51 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    xmlns:openxu="http://schemas.android.com/apk/res-auto"
     android:orientation="vertical">
-    <TextView
+    <com.frame.appframe.fragment.view.CustomCalendar
+        android:id="@+id/cal"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        openxu:mMonthRowL="@mipmap/ic_launcher"
+        openxu:mMonthRowR="@mipmap/ic_launcher"
+        openxu:mMonthRowSpac="20dip"
+
+        openxu:mTextSizeMonth="20sp"
+        openxu:mTextSizeWeek="17sp"
+        openxu:mTextSizeDay="17sp"
+
+        openxu:mTextColorMonth="#4b4b4b"
+        openxu:mTextColorWeek="#9e9e9d"
+        openxu:mSelectWeekTextColor="#f67633"
+        openxu:mTextColorDay="#686768"
+        openxu:mSelectTextColor="#ffffff"
+        openxu:mHasDataTextColor="#ffffff"
+        openxu:mHasDataBg="#e2966f"
+
+        openxu:mMonthSpac="10dip"
+        openxu:mLineSpac="12dip"
+        openxu:mTextSpac="8dip"
+
+        openxu:mCurrentBg="#6E6E6E"
+        openxu:mCurrentBgStrokeWidth="1.5dip"
+        openxu:mCurrentBgDashPath="@array/customCalendar_currentDay_bg_DashPath"
+        openxu:mSelectBg="#fe7f5c"
+        openxu:mSelectRadius="15dip" />
+    <TextView
+        android:text="dggggdgdgfgd"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
         android:textSize="16sp"
+        android:background="#f00"
         android:id="@+id/tv"/>
+    <ImageView
+        android:layout_marginLeft="30dp"
+        android:background="@android:color/transparent"
+        android:elevation="10dp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/ig"/>
     <android.support.v7.widget.RecyclerView
         android:background="#f0ff"
         android:layout_width="match_parent"

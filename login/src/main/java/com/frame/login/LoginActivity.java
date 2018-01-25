@@ -1,11 +1,13 @@
 package com.frame.login;
 
+import android.graphics.Color;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.text.method.ReplacementTransformationMethod;
 import android.view.KeyEvent;
 import android.view.View;
 import android.view.inputmethod.EditorInfo;
+import android.widget.ImageView;
 import android.widget.ScrollView;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -13,6 +15,7 @@ import android.widget.Toast;
 import com.frame.util.ConfigSettings;
 import com.frame.util.keybord.KeyBordUtil;
 import com.frame.util.storage.SharepreferenceUtil;
+import com.frame.util.view.edit_view.CircleDrawable;
 import com.frame.util.view.edit_view.ClearEditText;
 
 
@@ -30,6 +33,7 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
 
     private ScrollView scrollView;
     private TextView login;
+    private ImageView ig;
 
 
 
@@ -46,6 +50,8 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
         //获取组件
         scrollView = (ScrollView) findViewById(R.id.scrollView_id);
         login = (TextView) findViewById(R.id.login_id);
+        ig = (ImageView) findViewById(R.id.ing);
+        ig.setImageDrawable(new CircleDrawable(Color.RED,30));
         //设置点击监听
         login.setOnClickListener(this);
 
